@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('layouts.create');
+        $type = Type::All();
+        return view('layouts.create',compact('type'));
     }
 
     /**
@@ -35,7 +37,8 @@ class ProjectController extends Controller
             'title' => ['required', 'max:255'],
             'description' => ['required'],
             'thumb' => ['nullable'],
-            'date' => ['required']
+            'date' => ['required'],
+            'type_id' => ['nullable', 'exists:types,id']
         ]);
 
 
@@ -81,7 +84,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view("layouts.edit",compact("project"));
+        $type = Type::All();
+        return view("layouts.edit",compact('project','type'));
     }
 
     /**
@@ -93,7 +97,8 @@ class ProjectController extends Controller
             'title' => ['required', 'max:255'],
             'description' => ['required'],
             'thumb' => ['nullable'],
-            'date' => ['required']
+            'date' => ['required'],
+            'type_id' => ['nullable', 'exists:types,id']
         ]);
 
 

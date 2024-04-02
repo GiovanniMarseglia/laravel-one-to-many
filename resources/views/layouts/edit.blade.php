@@ -42,6 +42,19 @@
                 <input type="date" name="date" id="date" value="{{old('date') ?? $project->date}}">
             </div>
 
+            <div class="d-flex flex-column w-50">
+                <select name="type_id" id="type_id">
+                    <option value="">null</option>
+                    @foreach ($type as $element)
+                    <option value="{{ $element->id }}"{{ $element->id == old('type_id', $project->type ? $project->type->id : '') ? 'selected' : ''}}>
+
+                        {{ $element->type }}
+
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary mt-2">Modifica</button>
 
         </form>
